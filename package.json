@@ -16,22 +16,51 @@
 		"vscode": "^1.76.0"
 	},
 	"categories": [
-		"Other"
+		"Themes"
 	],
-	"activationEvents": [],
+	"activationEvents": [
+		"*"
+	],
+	"keywords": [
+		"Nyan Cat"
+	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "nyan-cat.helloWorld",
-				"title": "Hello World"
+				"command": "nyan-cat.NyanCatRefresh",
+				"title": "Nyan Cat: refresh status bar"
+			},
+			{
+				"command": "nyan-cat.NyanCatUninstall",
+				"title": "Nyan Cat: ready to uninstall Nyan Cat"
+			},
+			{
+				"command": "nyan-cat.NyanCatReload",
+				"title": "Nyan Cat: reload Nyan Cat"
 			}
-		]
+		],
+		"configuration": {
+			"title": "Nyan Cat Configuration",
+			"properties": {
+				"NyanCat.backgroundColor": {
+					"title": "Nyan Cat area background color, default is transparent, it accepts any css color string",
+					"type": "string",
+					"default": "transparent"
+				},
+				"NyanCat.name": {
+					"title": "what you want to show the name",
+					"type": "string",
+					"default": "bday"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
-		"compile": "tsc -p ./",
+		"compile": "copy ./src/nyan-cat.js ./out/nyan-cat.js && tsc -p ./",
 		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
 		"pretest": "yarn run compile && yarn run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js"
